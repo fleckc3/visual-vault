@@ -1,9 +1,10 @@
 import { Box, Button, CircularProgress } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { storage } from "../firebase-config";
 import { ref, uploadBytesResumable } from "firebase/storage";
 import { useEffect, useState } from "react";
 
-function Step2({ uploadData, setStep }) {
+function Step2({ uploadData, setStep, setUploadData }) {
   const [progress, setProgress] = useState(0);
   const { type, preview, file } = uploadData;
 
@@ -36,6 +37,11 @@ function Step2({ uploadData, setStep }) {
       }, 500);
     }
   }, [progress, setStep]);
+
+  const onBackClick = () => {
+    setUploadData({});
+    setStep(1);
+  };
 
   return (
     <Box
@@ -72,6 +78,13 @@ function Step2({ uploadData, setStep }) {
                 Send {type}
               </Button>{" "}
             </Box>
+            <Button
+              sx={{ mt: "30px" }}
+              startIcon={<ArrowBackIcon />}
+              onClick={onBackClick}
+            >
+              Back
+            </Button>
           </>
         )}
         <Box

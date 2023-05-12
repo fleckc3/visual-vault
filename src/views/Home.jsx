@@ -11,7 +11,13 @@ function Home() {
   return (
     <Container>
       {step === 1 && <Step1 setStep={setStep} setUploadData={setUploadData} />}
-      {step === 2 && <Step2 uploadData={uploadData} setStep={setStep} />}
+      {step === 2 && (
+        <Step2
+          uploadData={uploadData}
+          setStep={setStep}
+          setUploadData={setUploadData}
+        />
+      )}
       {step === 3 && <div> step3</div>}
     </Container>
   );
