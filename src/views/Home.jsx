@@ -3,6 +3,7 @@ import { Container } from "@mui/material";
 import { useState } from "react";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
+import Step3 from "./Step3";
 
 function Home() {
   const [step, setStep] = useState(1);
@@ -18,7 +19,7 @@ function Home() {
           setUploadData={setUploadData}
         />
       )}
-      {step === 3 && <div> step3</div>}
+      {step === 3 && <Step3 type={uploadData?.type} setStep={setStep} />}
     </Container>
   );
 }

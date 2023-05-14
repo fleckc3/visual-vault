@@ -1,18 +1,46 @@
-import { Box, Button } from "@mui/material";
+import { useState } from "react";
+import { Alert, Box, Button, Snackbar } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 
 function Step1({ setStep, setUploadData }) {
-  const validateFileSize = (type, file, preview) => {
-    if (type === "Image") {
-      const size = file.size;
-      const fileSize = Math.round(size / 1024);
+  const [error, setError] = useState({
+    hasError: false,
+    errorMessage: "",
+    type: "",
+  });
 
-      if (fileSize > 20971520) {
-        alert("Image too Big, please select a file less than 20mb");
+  const { hasError, errorMessage } = error;
+
+  const resetError = () => {
+    setError({
+      hasError: false,
+      errorMessage: "",
+      type: "",
+    });
+  };
+
+  const getErrorMessage = (type, maxSize) => {
+    return `Max ${type.toLowerCase()} size of ${maxSize / 1024 / 1024}MB exceeded! Please use a smaller ${type.toLowerCase()}.`;
+  };
+
+  const validateFileSize = (event, type) => {
+    const file = event.target.files[0];
+    const preview = URL.createObjectURL(file);
+    const size = file.size;
+
+    if (type === "Image") {
+      const maxSize = 20 * 1024 * 1024; // 15MB
+
+      if (size > maxSize) {
+        setError({
+          hasError: true,
+          errorMessage: getErrorMessage(type, maxSize),
+          type,
+        });
         setUploadData({});
-        return;
       } else {
+        resetError();
         setUploadData({
           type,
           file,
@@ -23,14 +51,17 @@ function Step1({ setStep, setUploadData }) {
     }
 
     if (type === "Video") {
-      const size = file.size;
-      const maxSize = 200 * 1024 * 1024; // 200MB
+      const maxSize = 100 * 1024 * 1024; // 100MB
 
       if (size > maxSize) {
-        alert("The selected video exceeds the maximum file size of 200MB.");
+        setError({
+          hasError: true,
+          errorMessage: getErrorMessage(type, maxSize),
+          type,
+        });
         setUploadData({});
-        return;
       } else {
+        resetError();
         setUploadData({
           type,
           file,
@@ -39,17 +70,6 @@ function Step1({ setStep, setUploadData }) {
         setStep(2);
       }
     }
-  };
-  const startFileUpload = (event, type) => {
-    const file = event.target.files[0];
-    const preview = URL.createObjectURL(file);
-    validateFileSize(type, file, preview);
-    // setUploadData({
-    //   type,
-    //   file,
-    //   preview,
-    // });
-    // setStep(2);
   };
 
   return (
@@ -74,7 +94,7 @@ function Step1({ setStep, setUploadData }) {
           type="file"
           hidden
           accept="image/*"
-          onChange={(e) => startFileUpload(e, "Image")}
+          onChange={(e) => validateFileSize(e, "Image")}
         />
       </Button>
       <Button
@@ -89,25 +109,15 @@ function Step1({ setStep, setUploadData }) {
           type="file"
           hidden
           accept="video/*"
-          onChange={(e) => startFileUpload(e, "Video")}
+          onChange={(e) => validateFileSize(e, "Video")}
         />
       </Button>
-      {/* <Button
-        variant="contained"
-        fullWidth
-        startIcon={<AddAPhotoIcon />}
-        component="label"
-        sx={{ my: "20px" }}
-      >
-        Record a voicee
-        <input
-          type="file"
-          hidden
-          capture="user"
-          accept="audio/*"
-          onChange={(e) => startFileUpload(e, 'Audio')}
-        />
-      </Button> */}
+
+      <Snackbar open={hasError} onClose={resetError} autoHideDuration={12000}>
+        <Alert onClose={resetError} severity="error" sx={{ width: "100%" }}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
