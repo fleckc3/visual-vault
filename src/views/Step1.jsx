@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Alert, Box, Button, Snackbar } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
+import VaultSvg from "../components/icons/VaultSvg";
+import { ThemeContext } from "@emotion/react";
 
 function Step1({ setStep, setUploadData }) {
   const [error, setError] = useState({
@@ -21,7 +23,9 @@ function Step1({ setStep, setUploadData }) {
   };
 
   const getErrorMessage = (type, maxSize) => {
-    return `Max ${type.toLowerCase()} size of ${maxSize / 1024 / 1024}MB exceeded! Please use a smaller ${type.toLowerCase()}.`;
+    return `Max ${type.toLowerCase()} size of ${
+      maxSize / 1024 / 1024
+    }MB exceeded! Please use a smaller ${type.toLowerCase()}.`;
   };
 
   const validateFileSize = (event, type) => {
@@ -51,7 +55,7 @@ function Step1({ setStep, setUploadData }) {
     }
 
     if (type === "Video") {
-      const maxSize = 100 * 1024 * 1024; // 100MB
+      const maxSize = 200 * 1024 * 1024; // 200MB
 
       if (size > maxSize) {
         setError({
@@ -78,40 +82,56 @@ function Step1({ setStep, setUploadData }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         height: "100vh",
       }}
     >
-      <Button
-        variant="contained"
-        fullWidth
-        startIcon={<AddAPhotoIcon />}
-        component="label"
-        sx={{ my: "20px" }}
-      >
-        Share image
-        <input
-          type="file"
-          hidden
-          accept="image/*"
-          onChange={(e) => validateFileSize(e, "Image")}
-        />
-      </Button>
-      <Button
-        variant="contained"
-        fullWidth
-        startIcon={<VideoCallIcon />}
-        component="label"
-        sx={{ my: "20px" }}
-      >
-        Capture a Video
-        <input
-          type="file"
-          hidden
-          accept="video/*"
-          onChange={(e) => validateFileSize(e, "Video")}
-        />
-      </Button>
+      <Box sx={{ mt: "80px" }}>
+        <Button
+          variant="contained"
+          fullWidth
+          startIcon={<AddAPhotoIcon />}
+          component="label"
+          sx={{ my: "20px" }}
+        >
+          Share image
+          <input
+            type="file"
+            hidden
+            accept="image/*"
+            onChange={(e) => validateFileSize(e, "Image")}
+          />
+        </Button>
+        <Button
+          variant="contained"
+          fullWidth
+          startIcon={<VideoCallIcon />}
+          component="label"
+          sx={{ my: "20px" }}
+        >
+          Capture a Video
+          <input
+            type="file"
+            hidden
+            accept="video/*"
+            onChange={(e) => validateFileSize(e, "Video")}
+          />
+        </Button>
+
+        <Button
+          variant="contained"
+          fullWidth
+          startIcon={
+            <Box sx={{ width: "35px", height: "35px" }}>
+              <VaultSvg />
+            </Box>
+          }
+          component="label"
+          sx={{ my: "20px", border: '1px solid secondary.main' }}
+        >
+          View the Vault
+        </Button>
+      </Box>
 
       <Snackbar open={hasError} onClose={resetError} autoHideDuration={12000}>
         <Alert onClose={resetError} severity="error" sx={{ width: "100%" }}>

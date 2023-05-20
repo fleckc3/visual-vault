@@ -62,7 +62,7 @@ function Step2({ uploadData, setStep, setUploadData }) {
               <img
                 src={preview}
                 alt={`${type}-preview`}
-                style={{ width: "100%", height: "auto" }}
+                style={{ maxWidth: "100%", maxHeight: "50vh" }}
               />
             )}
 
@@ -70,7 +70,7 @@ function Step2({ uploadData, setStep, setUploadData }) {
               <video
                 src={preview}
                 controls
-                style={{ width: "100%", height: "auto" }}
+                style={{ maxWidth: "100%", maxHeight: "50vh" }}
               />
             )}
             <Box mt sx={{ width: "100%" }}>
