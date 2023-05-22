@@ -5,7 +5,7 @@ import VideoCallIcon from "@mui/icons-material/VideoCall";
 import VaultSvg from "../components/icons/VaultSvg";
 import { ThemeContext } from "@emotion/react";
 
-function Step1({ setStep, setUploadData }) {
+function Step1({ setStep, setUploadData, setShowVault }) {
   const [error, setError] = useState({
     hasError: false,
     errorMessage: "",
@@ -122,12 +122,12 @@ function Step1({ setStep, setUploadData }) {
           variant="contained"
           fullWidth
           startIcon={
-            <Box sx={{ width: "35px", height: "35px" }}>
-              <VaultSvg />
+            <Box sx={{ width: "30px", height: "30px" }}>
+              <VaultSvg stoke="#9f5de2" />
             </Box>
           }
-          component="label"
-          sx={{ my: "20px", border: '1px solid secondary.main' }}
+          onClick={() => setShowVault(true)}
+          sx={{ my: "20px", color: "white", backgroundColor: "#6D7A5F" }}
         >
           View the Vault
         </Button>

@@ -1,7 +1,8 @@
 import { Box, Button, CircularProgress } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { storage } from "../firebase-config";
-import { ref, uploadBytesResumable } from "firebase/storage";
+import { storage, db } from "../firebase-config";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref as dbRef, set, push } from "firebase/database";
 import { useEffect, useState } from "react";
 
 function Step2({ uploadData, setStep, setUploadData }) {
@@ -23,8 +24,16 @@ function Step2({ uploadData, setStep, setUploadData }) {
       (error) => {
         alert(error);
       },
-      () => {
+      async () => {
         console.log("task completed");
+        const mediaUrl = await getDownloadURL(uploadTask.snapshot.ref);
+        console.log(mediaUrl)
+        const vaultListRef = dbRef(db, 'vaults')
+        const newMediaRef = push(vaultListRef)
+        set(newMediaRef, {
+          name: file.name,
+          url: mediaUrl
+        })
       }
     );
   };

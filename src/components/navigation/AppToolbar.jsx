@@ -7,7 +7,7 @@ function AppToolbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Box sx={{ width: "25px", height: "25px" }}>
+          <Box sx={{ width: "30px", height: "30px" }}>
             <VaultSvg />
           </Box>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2 }}>

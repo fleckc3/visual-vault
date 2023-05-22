@@ -3,6 +3,7 @@ import AppToolbar from "./components/navigation/AppToolbar";
 import theme from "./theme/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import Home from "./views/Home";
+import MediaVault from "./views/MediaVault";
 
 function App() {
   return (
@@ -18,13 +19,15 @@ function App() {
             overflow: "hidden",
             bottom: 0,
             right: 0,
+            zIndex: -1,
           }}
         />
+        
 
         <Container sx={{ mt: "-56px" }}>
           <Box>
             {/* <CaptureForm /> */}
-            <Home />
+            <Home style={{ zIndex: 10 }} />
           </Box>
         </Container>
       </ThemeProvider>
