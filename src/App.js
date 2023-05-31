@@ -3,7 +3,7 @@ import AppToolbar from "./components/navigation/AppToolbar";
 import theme from "./theme/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import Home from "./views/Home";
-import MediaVault from "./views/MediaVault";
+// import MediaVault from "./views/MediaVault";
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
             right: 0,
             zIndex: -1,
           }}
+          alt="icon"
         />
-        
 
         <Container sx={{ mt: "-56px" }}>
           <Box>

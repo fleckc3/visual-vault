@@ -1,6 +1,5 @@
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import VaultSvg from "../icons/VaultSvg";
-import MenuIcon from "@mui/icons-material/Menu";
 
 function AppToolbar() {
   return (

@@ -11,7 +11,7 @@ import HomeIcon from "@mui/icons-material/Home";
 
 function Step3({ type, setStep }) {
   const [open, setOpen] = useState(Boolean(type));
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   return (
     <Box
       sx={{
