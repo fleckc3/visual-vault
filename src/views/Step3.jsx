@@ -47,10 +47,11 @@ function Step3({ type, setStep }) {
         </Button>
       </Box>
       <Button
-        variant="outlined"
         sx={{ mt: 4 }}
         startIcon={<HomeIcon />}
         onClick={() => setStep(1)}
+        color="secondary"
+        variant="contained"
       >
         Home
       </Button>

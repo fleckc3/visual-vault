@@ -6,6 +6,7 @@ import Step2 from "./Step2";
 import Step3 from "./Step3";
 import MediaVault from "./MediaVault";
 
+
 function Home() {
   const [step, setStep] = useState(1);
   const [uploadData, setUploadData] = useState({});

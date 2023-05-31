@@ -3,7 +3,6 @@ import { Alert, Box, Button, Snackbar } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import VaultSvg from "../components/icons/VaultSvg";
-import { ThemeContext } from "@emotion/react";
 
 function Step1({ setStep, setUploadData, setShowVault }) {
   const [error, setError] = useState({
@@ -86,7 +85,7 @@ function Step1({ setStep, setUploadData, setShowVault }) {
         height: "100vh",
       }}
     >
-      <Box sx={{ mt: "80px" }}>
+      <Box sx={{ mt: 10 }}>
         <Button
           variant="contained"
           fullWidth

@@ -1,12 +1,13 @@
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { storage, db } from "../firebase-config";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { ref as dbRef, set, push } from "firebase/database";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Step2({ uploadData, setStep, setUploadData }) {
   const [progress, setProgress] = useState(0);
+  const [uploadingMetaData, setUploadingMetaData] = useState(false);
   const { type, preview, file } = uploadData;
 
   const uploadFile = () => {
@@ -25,27 +26,22 @@ function Step2({ uploadData, setStep, setUploadData }) {
         alert(error);
       },
       async () => {
+        setUploadingMetaData(true);
         console.log("task completed");
         const mediaUrl = await getDownloadURL(uploadTask.snapshot.ref);
-        console.log(mediaUrl)
-        const vaultListRef = dbRef(db, 'vaults')
-        const newMediaRef = push(vaultListRef)
+        const vaultListRef = dbRef(db, "vaults");
+        const newMediaRef = push(vaultListRef);
         set(newMediaRef, {
           name: file.name,
-          url: mediaUrl
-        })
+          src: mediaUrl,
+
+          type,
+        });
+        setUploadingMetaData(false);
+        setStep(3);
       }
     );
   };
-
-  useEffect(() => {
-    if (progress === 100) {
-      setTimeout(() => {
-        // Your code here
-        setStep(3);
-      }, 500);
-    }
-  }, [progress, setStep]);
 
   const onBackClick = () => {
     setUploadData({});
@@ -87,23 +83,44 @@ function Step2({ uploadData, setStep, setUploadData }) {
                 Send {type}
               </Button>{" "}
             </Box>
-            <Button
-              sx={{ mt: "30px" }}
-              startIcon={<ArrowBackIcon />}
-              onClick={onBackClick}
+            <Box
+              sx={{
+                width: "100%",
+                height: "auto",
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
             >
-              Back
-            </Button>
+              <Button
+                variant="contained"
+                sx={{ mt: "30px" }}
+                startIcon={<ArrowBackIcon />}
+                onClick={onBackClick}
+                color="secondary"
+              >
+                Back
+              </Button>
+            </Box>
           </>
         )}
         <Box
           sx={{
             display: "flex",
-            justifyContent: "",
+            flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <CircularProgress variant="determinate" value={progress} />
+          <CircularProgress
+            variant="determinate"
+            value={progress}
+            sx={{ mb: 2 }}
+          />
+          {uploadingMetaData && (
+            <Typography color="secondary" display="block">
+              Finishing...
+            </Typography>
+          )}
         </Box>
       </>
     </Box>
