@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Alert, Box, Button, Snackbar } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
-import VaultSvg from "../components/icons/VaultSvg";
 
 function Step1({ setStep, setUploadData, setShowVault }) {
   const [error, setError] = useState({
@@ -117,7 +116,7 @@ function Step1({ setStep, setUploadData, setShowVault }) {
           />
         </Button>
 
-        <Button
+        {/* <Button
           variant="contained"
           fullWidth
           startIcon={
@@ -129,7 +128,7 @@ function Step1({ setStep, setUploadData, setShowVault }) {
           sx={{ my: "20px", color: "white", backgroundColor: "#6D7A5F" }}
         >
           View the Vault
-        </Button>
+        </Button> */}
       </Box>
 
       <Snackbar open={hasError} onClose={resetError} autoHideDuration={12000}>

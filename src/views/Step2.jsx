@@ -116,11 +116,10 @@ function Step2({ uploadData, setStep, setUploadData }) {
             value={progress}
             sx={{ mb: 2 }}
           />
-          {uploadingMetaData && (
-            <Typography color="secondary" display="block">
-              Finishing...
-            </Typography>
-          )}
+
+          <Typography color="secondary" display="block">
+            {uploadingMetaData ? "Finishing..." : progress > 0 && `Sending ${type}...`}
+          </Typography>
         </Box>
       </>
     </Box>
