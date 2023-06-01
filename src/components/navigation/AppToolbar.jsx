@@ -1,7 +1,9 @@
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
+
 import VaultSvg from "../icons/VaultSvg";
 
 function AppToolbar() {
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

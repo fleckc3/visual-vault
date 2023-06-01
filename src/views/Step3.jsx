@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  Alert,
-  Box,
-  Button,
-  Snackbar,
-  Typography,
-  TextField,
-} from "@mui/material";
+import { Alert, Box, Button, Snackbar, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 
 function Step3({ type, setStep }) {
@@ -28,10 +21,7 @@ function Step3({ type, setStep }) {
         textAlign="center"
         sx={{ mb: 3 }}
       >{`Thanks for sharing your ${type}!`}</Typography>
-      <Typography variant="p" textAlign="center" gutterBottom>
-        Want to see what everyone else is sharing?
-      </Typography>
-      <Typography variant="p" textAlign="center" gutterBottom>
+      {/* <Typography variant="p" textAlign="center" gutterBottom>
         Leave us your email to receive a pin code for full access to Colin and
         Lisa's Vow Vault
       </Typography>
@@ -45,7 +35,7 @@ function Step3({ type, setStep }) {
         <Button variant="contained" fullWidth sx={{ my: 1 }}>
           Submit
         </Button>
-      </Box>
+      </Box> */}
       <Button
         sx={{ mt: 4 }}
         startIcon={<HomeIcon />}

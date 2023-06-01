@@ -13,9 +13,9 @@ function Home() {
   const [showVault, setShowVault] = useState(false);
 
   return (
-    <Container>
+    <Container maxWidth={500}>
       {showVault ? (
-        <MediaVault />
+        <MediaVault setShowVault={setShowVault} />
       ) : (
         <>
           {step === 1 && (
